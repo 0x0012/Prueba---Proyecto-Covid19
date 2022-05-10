@@ -6,6 +6,7 @@ const { validateToken, authorize } = require('./utils')
 
 app.listen(3000, console.log("Servidor encendido 🟢"))
 app.use(express.json())
+app.use(express.static(__dirname + '/assets'))
 
 app.get("/api/total", (req, res) => {
     res.json(countries)
@@ -15,4 +16,8 @@ app.post('/api/login', authorize)
 
 app.get("/api/country/usa", validateToken, (req, res) => {
     res.json(usaDaily)
+})
+
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html')
 })
